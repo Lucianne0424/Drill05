@@ -13,6 +13,16 @@ p2 = [Width // 2, Height //2]
 dir = True
 frame = 0
 
+loop = True
+def mouse_event():
+    global loop
+
+    events = get_events()
+
+    for event in events:
+        if event.type == SDL_QUIT:
+            loop = False
+
 def nextRandomLocation():
     global  p1, p2, dir
     p1[0], p1[1] = p2[0], p2[1]
@@ -27,6 +37,10 @@ def nextRandomLocation():
 def moveBoy():
     global frame
     for i in range(0, 100+1, 3):
+        mouse_event()
+        if loop == False:
+            break
+
         clear_canvas()
         backGroundImg.draw(Width // 2, Height // 2)
         handImg.draw(p2[0],p2[1])
@@ -50,6 +64,6 @@ def moveBoy():
 
 
 
-while True:
+while loop:
     nextRandomLocation()
     moveBoy()
